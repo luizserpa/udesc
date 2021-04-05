@@ -141,8 +141,8 @@ public class ControllerMail {
     private void populaEmail(){
         emailsCaixaEntrada.addEmail(new Email("JM", user.toString(), "Deu ruim", "Manda o nascimento pra brasilia"));
         emailsCaixaEntrada.addEmail(new Email("LI", user.toString(), "Desconto", "Existe desconto no serviço de manicure para quem tem 9 dedos?"));
-        emailsCaixaEntrada.addEmail(new Email("Eneias", user.toString(), "WMD", "Pago R$ 500,00 pelo bombom"));
-        emailsCaixaEntrada.addEmail(new Email("Trump", user.toString(), "Vendo bombom", "Vendo bombom R$ 250,00 ou 3 x 500,00"));
+        emailsCaixaEntrada.addEmail(new Email("Eneias", user.toString(), "pascoa", "Pago R$ 500,00 pelo bombom"));
+        emailsCaixaEntrada.addEmail(new Email("Coelho", user.toString(), "Vendo bombom", "Vendo bombom R$ 250,00 ou 3 x 500,00"));
     }
 
     private void setDataTable(EmailData data){
