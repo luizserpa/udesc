@@ -5,14 +5,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import poomail.classes.Email;
-import poomail.classes.EmailData;
-import poomail.classes.User;
-import poomail.classes.UserHolder;
+import poomail.Main;
+import poomail.classes.*;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.EventListener;
 
 public class ControllerMail {
@@ -49,12 +52,10 @@ public class ControllerMail {
         this.emailsLixeira = new EmailData();
         this.user = UserHolder.getInstance().getUser();
 
-        mainMailPage.requestFocus();
+        changeFocus();
 
-        populaEmail();
-
+        receberEmails(emailsCaixaEntrada);
         setDataTable(emailsCaixaEntrada);
-
     }
 
 
@@ -67,16 +68,17 @@ public class ControllerMail {
     @FXML
     public void novoEmail(){
         
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/novoEmail.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Dialog dialog = new Dialog();
-            dialog.setTitle("Novo Email");
-            dialog.setScene(new Scene(root1));
-            dialog.showAndWait();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+//        try{
+//            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/novoEmail.fxml"));
+//            Scene scene = mainMailPage.getScene();
+//            Dialog dialog = new Dialog();
+//            dialog.setTitle("Novo Email");
+//            dialog.setDialogPane();
+//            dialog.showAndWait();
+//
+//        } catch (IOException e){
+//            e.printStackTrace();
+//        }
 
 
     }
@@ -86,10 +88,11 @@ public class ControllerMail {
         preencheEmail(tableEmails.getSelectionModel().getSelectedItem());
     }
 
-    //FAZER
+
     @FXML
     public void atualizarEmail(){
-        System.out.println("Atualizar Email");
+        receberEmails(emailsCaixaEntrada);
+        setDataTable(emailsCaixaEntrada);
     }
 
     @FXML
@@ -112,16 +115,16 @@ public class ControllerMail {
     @FXML
     public void lixeira(){
         btnDeletar.setDisable(true);
-        setDataTable(emailsLixeira)
+        setDataTable(emailsLixeira);
     }
 
     @FXML
     public void deletarEmail(){
-        EmailData data = preencheEmail(tableEmails.getSelectionModel().getSelectedItems());
+        ObservableList<Email> data = tableEmails.getSelectionModel().getSelectedItems();
         data.forEach(e -> {
             emailsCaixaEntrada.getEmails().remove(e);
             emailsLixeira.getEmails().add(e);
-        })
+        });
         setDataTable(emailsCaixaEntrada);
     }
 
@@ -146,9 +149,22 @@ public class ControllerMail {
     }
 
     private void setDataTable(EmailData data){
-        Email emailVazio = new Email("Vazio", user.toString(), "Vazio", "Vazio")
+        Email emailVazio = new Email("Vazio", user.toString(), "Vazio", "Vazio");
         tableEmails.setItems(data.getEmails());
-        preencheEmail(data.getEmails().get(0) != null ? data.getEmails().get(0) : emailVazio);
+        preencheEmail(data.getEmails().isEmpty() ? emailVazio : data.getEmails().get(0));
     }
 
+    private void receberEmails(EmailData data){
+        Mensagem mensagems[] = Talker.getInstance().getMensagens(user.toString());
+        if (mensagems != null){
+            for (Mensagem m : mensagems){
+                Email e = new Email(m.getRemetente(), m.getDestinatario(), m.getAssunto(), m.getTexto());
+                data.getEmails().add(e);
+            }
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Sem novas mensagens");
+            alert.show();
+        }
+    }
 }

@@ -22,7 +22,7 @@
     <top>
         <HBox styleClass="nav">
             <Button text="Novo Email" onAction="#novoEmail" styleClass="nav--btn"/>
-            <Button text="Deletar" fx-id="btnDeletar" onAction="#deletarEmail" styleClass="nav--btn"/>
+            <Button text="Deletar" fx:id="btnDeletar" onAction="#deletarEmail" styleClass="nav--btn"/>
             <Button text="Atualizar" onAction="#atualizarEmail" styleClass="nav--btn"/>
             <Button text="Sair" onAction="#sairEmail" styleClass="nav--btn"/>
         </HBox>

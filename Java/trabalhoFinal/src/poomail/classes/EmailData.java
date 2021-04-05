@@ -24,5 +24,6 @@ public class EmailData {
     public void addEmail(Email email){
         emails.add(email);
     }
+
 }
 

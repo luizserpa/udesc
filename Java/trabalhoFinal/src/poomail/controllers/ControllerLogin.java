@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import poomail.Main;
+import poomail.classes.Talker;
 import poomail.classes.User;
 import poomail.classes.UserHolder;
 
@@ -48,11 +49,11 @@ public class ControllerLogin {
     @FXML
     public void loginAction(){
         user = new User(loginField.getText());
-        if (!user.toString().equals("")) {
+        if (user.validarLogin()) {
             openEmail(true, user);
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Favor informar um usuario");
+            alert.setContentText(user.getLogErro());
             alert.show();
         }
     }
