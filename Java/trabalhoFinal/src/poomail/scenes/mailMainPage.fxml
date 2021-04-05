@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.sun.javafx.scene.control.ContextMenuContent.ArrowMenuItem?>
+<?import java.net.URL?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="poomail.controllers.ControllerMail"
+            prefHeight="Infinity" prefWidth="Infinity"
+            fx:id="mainMailPage">
+
+    <stylesheets>
+        <URL value="@../style/mainMailStyle.css"/>
+    </stylesheets>
+
+    <top>
+        <HBox styleClass="nav">
+            <Button text="Novo Email" onAction="#novoEmail" styleClass="nav--btn"/>
+            <Button text="Deletar" onAction="#deletarEmail" styleClass="nav--btn"/>
+            <Button text="Atualizar" onAction="#atualizarEmail" styleClass="nav--btn"/>
+            <Button text="Sair" onAction="#sairEmail" styleClass="nav--btn"/>
+        </HBox>
+    </top>
+    <left>
+        <HBox>
+            <VBox styleClass="sideMenuManual">
+                <Label text="Pastas" alignment="CENTER" maxWidth="Infinity" styleClass="tituloMenuPasta"/>
+                <Button text="Caixa de Entrada" onAction="#caixaEntrada" styleClass="btn-menuPasta"/>
+                <Button text="Enviados" onAction="#enviados" styleClass="btn-menuPasta"/>
+                <Button text="Lixeira" onAction="#lixeira" styleClass="btn-menuPasta"/>
+            </VBox>
+            <VBox styleClass="sideMenus">
+                <TableView fx:id="tableEmails" styleClass="tableView" onMouseClicked="#tableClicked">
+                    <columns>
+                        <TableColumn text="Entrada" fx:id="tipoEntrada" styleClass="tableColumn">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="resumo"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </VBox>
+        </HBox>
+    </left>
+    <center>
+        <VBox styleClass="areaEmail" maxWidth="Infinity" maxHeight="Infinity" spacing="15">
+            <HBox>
+                <VBox spacing="6">
+                    <Label text="Titulo:" styleClass="labelEmail" />
+                    <Label text="De:" styleClass="labelEmail"/>
+                    <Label text="Para:" styleClass="labelEmail"/>
+                </VBox>
+                <VBox>
+                    <TextField disable="true" text="texto" fx:id="fieldTitulo" styleClass="fieldEmail"/>
+                    <TextField disable="true" text="texto" fx:id="fieldDe" styleClass="fieldEmail"/>
+                    <TextField disable="true" text="texto" fx:id="fieldPara" styleClass="fieldEmail"/>
+                </VBox>
+            </HBox>
+            <TextArea disable="true" fx:id="areaConteudo" styleClass="areaEmail"/>
+        </VBox>
+    </center>
+
+</BorderPane>

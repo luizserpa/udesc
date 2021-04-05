@@ -1,0 +1,37 @@
+.button {
+    -fx-background-color: #d4d4d4;
+    -fx-border-width: 1px;
+    -fx-border-color: #d4d4d4;
+}
+
+.button:hover {
+    -fx-background-color: #c9c9c9;
+    -fx-border-width: 1px;
+    -fx-border-color: #a8a8a8;
+}
+
+.root {
+    -fx-font-size: 20px;
+    -fx-font-family: "Ubuntu";
+    -fx-background-color: #ededed;
+}
+
+.header {
+    -fx-padding: 20px 0 10px 0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #006600;
+
+
+}
+
+.center {
+    -fx-background-color: #fff;
+}
+
+.textField {
+    -fx-font-smoothing-type: gray;
+}
+
+.vBox {
+    -fx-padding: 140px 0 0 0;
+}

@@ -1,0 +1,82 @@
+.root {
+}
+
+.nav {
+  -fx-background-color: #eaeaea;
+  -fx-padding: 0 0 5px 0;
+
+}
+
+.nav--btn {
+  -fx-font-size: 16px;
+  -fx-font-family: Ubuntu;
+  -fx-pref-width: 100px;
+  -fx-pref-hight: 15px;
+  -fx-background-color: #eaeaea;
+  -fx-border-width: 0;
+  -fx-border-color: #eaeaea;
+  -fx-padding: 10px 10px 0 0;
+}
+
+.nav--btn:hover {
+  -fx-background-color: #d3d3d3;
+  -fx-border-color: #d3d3d3;
+}
+
+
+.tableView {
+  -fx-pref-height: 1080px;
+}
+
+.tableColumn {
+  -fx-pref-width: 250px;
+}
+
+.btn-menuPasta {
+      -fx-font-size: 14px;
+      -fx-pref-width: 240px;
+}
+
+.tituloMenuPasta {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: #dcdcdc;
+    -fx-pref-width: 240px;
+    -fx-pref-height: 30px;
+    -fx-border-width: 0 0 5px 0;
+    -fx-border-color: #fff;
+}
+
+.sideMenus {
+    -fx-pref-width: 250px;
+    -fx-border-color: #006600;
+    -fx-border-radius: 5px;
+}
+
+.sideMenuManual{
+    -fx-pref-width: 250px;
+    -fx-border-color: #006600;
+    -fx-border-width: 1px;
+    -fx-padding: 0 5px 0  5px;
+    -fx-background-color: #fff;
+    -fx-border-radius: 5px;
+}
+
+.areaEmail {
+     -fx-font-size: 16px;
+     -fx-padding: 10px;
+     -fx-pref-height: 1000px;
+     -fx-font-weight: bold;
+}
+
+.labelEmail {
+    -fx-font-weight: bold;
+    -fx-padding: 5px 0 0 5px;
+    -fx-pref-width: 100px;
+}
+
+.fieldEmail {
+    -fx-font-weight: bold;
+    -fx-text-fill: #000;
+    -fx-pref-width: 1000px;
+}
