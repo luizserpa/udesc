@@ -31,6 +31,8 @@ public class ControllerMail {
     private TableView<Email> tableEmails;
     @FXML
     private TableColumn tipoEntrada;
+    @FXML
+    private Button btnDeletar;
 
     private EmailData emailsCaixaEntrada;
     private EmailData emailsEnviados;
@@ -51,9 +53,8 @@ public class ControllerMail {
 
         populaEmail();
 
+        setDataTable(emailsCaixaEntrada);
 
-        tableEmails.setItems(emailsCaixaEntrada.getEmails());
-        preencheEmail(emailsCaixaEntrada.getEmails().get(0));
     }
 
 
@@ -65,9 +66,19 @@ public class ControllerMail {
 
     @FXML
     public void novoEmail(){
-        System.out.println("Novo email");
-        fieldTitulo.setText("Opa, deu certo");
-        fieldPara.setText(user.toString() + "@poomail.com");
+        
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/novoEmail.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Dialog dialog = new Dialog();
+            dialog.setTitle("Novo Email");
+            dialog.setScene(new Scene(root1));
+            dialog.showAndWait();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     @FXML
@@ -75,6 +86,7 @@ public class ControllerMail {
         preencheEmail(tableEmails.getSelectionModel().getSelectedItem());
     }
 
+    //FAZER
     @FXML
     public void atualizarEmail(){
         System.out.println("Atualizar Email");
@@ -87,22 +99,30 @@ public class ControllerMail {
 
     @FXML
     public void caixaEntrada(){
-        System.out.println("Caixa de entrada");
+        btnDeletar.setDisable(false);
+        setDataTable(emailsCaixaEntrada);
     }
 
     @FXML
     public void enviados(){
-        System.out.println("Enviados");
+        btnDeletar.setDisable(true);
+        setDataTable(emailsEnviados);
     }
 
     @FXML
     public void lixeira(){
-        System.out.println("Lixeira");
+        btnDeletar.setDisable(true);
+        setDataTable(emailsLixeira)
     }
 
     @FXML
     public void deletarEmail(){
-        System.out.println("deletar");
+        EmailData data = preencheEmail(tableEmails.getSelectionModel().getSelectedItems());
+        data.forEach(e -> {
+            emailsCaixaEntrada.getEmails().remove(e);
+            emailsLixeira.getEmails().add(e);
+        })
+        setDataTable(emailsCaixaEntrada);
     }
 
     private void changeFocus (){
@@ -123,6 +143,12 @@ public class ControllerMail {
         emailsCaixaEntrada.addEmail(new Email("LI", user.toString(), "Desconto", "Existe desconto no serviço de manicure para quem tem 9 dedos?"));
         emailsCaixaEntrada.addEmail(new Email("Eneias", user.toString(), "WMD", "Pago R$ 500,00 pelo bombom"));
         emailsCaixaEntrada.addEmail(new Email("Trump", user.toString(), "Vendo bombom", "Vendo bombom R$ 250,00 ou 3 x 500,00"));
+    }
+
+    private void setDataTable(EmailData data){
+        Email emailVazio = new Email("Vazio", user.toString(), "Vazio", "Vazio")
+        tableEmails.setItems(data.getEmails());
+        preencheEmail(data.getEmails().get(0) != null ? data.getEmails().get(0) : emailVazio);
     }
 
 }

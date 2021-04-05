@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="poomail.controllers.ControllerEvioEmaul.fxml"
+            prefHeight="900" prefWidth="800"
+            fx:id="mainMailPage">
+    <Vbox spacing="10">
+        <Hbox>
+            <Vbox spacing="6">
+                <Label text="Para" styleClass="labelEmail"/>
+                <Label text="Titulo" styleClass="labelEmail"/>
+            </Vbox>
+            <Vbox>
+                <TextField fx-id="fieldPara" styleClass="fieldEmail"/>
+                <TextField fx-id="fieldTitulo" styleClass="fieldEmail"/>
+            </Vbox>
+            <AreaText styleClass="areaEmail" fx-id="areaEmail">
+        </Hbox>
+    </Vbox>
+</BorderPane>
