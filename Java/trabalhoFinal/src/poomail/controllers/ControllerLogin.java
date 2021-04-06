@@ -17,16 +17,10 @@ import java.io.IOException;
 
 public class ControllerLogin {
 
-    private User user;
-
     @FXML
     private TextField loginField;
     @FXML
     private BorderPane scene;
-    @FXML
-    private Button loginButton;
-
-
 
     public ControllerLogin() {
         changeFocus();
@@ -37,13 +31,11 @@ public class ControllerLogin {
         scene.requestFocus();
     }
 
-
-    // EventsHandler
     @FXML
     public void loginAction(){
-        user = new User(loginField.getText());
+        User user = new User(loginField.getText());
         if (user.validarLogin()) {
-            openEmail(true, user);
+            openEmail(user);
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText(user.getLogErro());
@@ -56,32 +48,28 @@ public class ControllerLogin {
         loginAction();
     }
 
-    // Methods
     private void changeFocus (){
         Platform.runLater( () -> scene.requestFocus());
     }
 
-    private void openEmail(boolean confirmaLogin, User user){
-        if (confirmaLogin){
-            UserHolder userHolder = UserHolder.getInstance();
-            userHolder.setUser(user);
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/mailMainPage.fxml"));
-                Parent root1 = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setTitle(user.toString().toLowerCase() + "@poomail.com.br");
-                stage.setScene(new Scene(root1));
-                stage.show();
-                stage.getScene().getWindow().setOnHidden((event)-> {
-                    this.scene.setVisible(true);
-                    this.scene.getScene().getWindow().setOpacity(1);
-                });
-                this.scene.setVisible(false);
-                this.scene.getScene().getWindow().setOpacity(0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private void openEmail(User user){
+        UserHolder userHolder = UserHolder.getInstance();
+        userHolder.setUser(user);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/mailMainPage.fxml"));
+            Parent root1 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle(user.toString().toLowerCase() + "@poomail.com.br");
+            stage.setScene(new Scene(root1));
+            stage.show();
+            stage.getScene().getWindow().setOnHidden((event)-> {
+                this.scene.setVisible(true);
+                this.scene.getScene().getWindow().setOpacity(1);
+            });
+            this.scene.setVisible(false);
+            this.scene.getScene().getWindow().setOpacity(0);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }

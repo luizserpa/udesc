@@ -4,7 +4,7 @@ import poomail.classes.Talker;
 
 public class User {
     private String username;
-    private boolean isLoginValido;
+    private boolean isLoginValido = false;
     private String logErro;
 
     public User(String username) {

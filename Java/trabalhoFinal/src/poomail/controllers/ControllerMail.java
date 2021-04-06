@@ -37,14 +37,11 @@ public class ControllerMail {
     @FXML
     private TableView<Email> tableEmails;
     @FXML
-    private TableColumn tipoEntrada;
-    @FXML
     private Button btnDeletar;
 
     private EmailData emailsCaixaEntrada;
     private EmailData emailsEnviados;
     private EmailData emailsLixeira;
-    private final int valor = 5;
     private User user;
     private int countDown;
 
@@ -56,14 +53,13 @@ public class ControllerMail {
         this.emailsEnviados = new EmailData();
         this.emailsLixeira = new EmailData();
         this.user = UserHolder.getInstance().getUser();
-        this.countDown = 30;
-
+        this.countDown = 0;
         changeFocus();
 
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                while (true){
+                while (UserHolder.getInstance().getUser().isLoginValido()){
                     countDown--;
                     if (countDown <= 0) {
                         receberEmails(emailsCaixaEntrada, false);
@@ -71,9 +67,9 @@ public class ControllerMail {
                     }
                     sleep(1000);
                 }
+                return null;
             }
         };
-        receberEmails(emailsCaixaEntrada, false);
         new Thread(task).start();
         setDataTable(emailsCaixaEntrada);
     }
@@ -88,9 +84,7 @@ public class ControllerMail {
             stage.setTitle("Novo Email");
             stage.setScene(new Scene(root2));
             stage.show();
-            stage.getScene().getWindow().setOnHidden(e -> {
-                emailEnviado(EmailHolder.getINSTANCE().isEnviado(), stage);
-            });
+            stage.getScene().getWindow().setOnHidden(e -> emailEnviado(EmailHolder.getINSTANCE().isEnviado(), stage));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,6 +105,7 @@ public class ControllerMail {
 
     @FXML
     public void sairEmail(){
+        UserHolder.getInstance().setUser(new User("Novo Usuario"));
         mainMailPage.getScene().getWindow().hide();
     }
 
@@ -155,12 +150,12 @@ public class ControllerMail {
     }
 
 
-    private void populaEmail(){
-        emailsCaixaEntrada.addEmail(new Email("JM", user.toString(), "Deu ruim", "Manda o nascimento pra brasilia"));
-        emailsCaixaEntrada.addEmail(new Email("LI", user.toString(), "Desconto", "Existe desconto no serviço de manicure para quem tem 9 dedos?"));
-        emailsCaixaEntrada.addEmail(new Email("Eneias", user.toString(), "pascoa", "Pago R$ 500,00 pelo bombom"));
-        emailsCaixaEntrada.addEmail(new Email("Coelho", user.toString(), "Vendo bombom", "Vendo bombom R$ 250,00 ou 3 x 500,00"));
-    }
+//    private void populaEmail(){
+//        emailsCaixaEntrada.addEmail(new Email("JM", user.toString(), "Deu ruim", "Manda o nascimento pra brasilia"));
+//        emailsCaixaEntrada.addEmail(new Email("LI", user.toString(), "Desconto", "Existe desconto no serviço de manicure para quem tem 9 dedos?"));
+//        emailsCaixaEntrada.addEmail(new Email("Eneias", user.toString(), "pascoa", "Pago R$ 500,00 pelo bombom"));
+//        emailsCaixaEntrada.addEmail(new Email("Coelho", user.toString(), "Vendo bombom", "Vendo bombom R$ 250,00 ou 3 x 500,00"));
+//    }
 
     private void setDataTable(EmailData data){
         Email emailVazio = new Email("Vazio", user.toString(), "Vazio", "Vazio");

@@ -5,12 +5,6 @@ import javafx.collections.ObservableList;
 
 public class EmailData {
 
-    private static final String DE = "de";
-    private static final String PARA = "para";
-    private static final String TITULO = "titulo";
-    private static final String CONTEUDO = "conteudo";
-    private static final String RESUMO = "resumo";
-
     private final ObservableList<Email> emails;
 
     public EmailData() {
@@ -31,6 +25,5 @@ public class EmailData {
                 emails.remove(i);
         }
     }
-
 }
 

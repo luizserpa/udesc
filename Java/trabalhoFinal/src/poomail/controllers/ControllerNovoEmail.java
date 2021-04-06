@@ -23,7 +23,6 @@ public class ControllerNovoEmail {
     private TextArea areaEmail;
 
     private User user;
-    private Email novoEmail;
 
     @FXML
     public void initialize (){
@@ -34,7 +33,7 @@ public class ControllerNovoEmail {
     public void enviarEmail(){
         String dest = fieldPara.getText();
         if (!dest.equals("")){
-            novoEmail = new Email(user.toString(), dest, fieldTitulo.getText(), areaEmail.getText());
+            Email novoEmail = new Email(user.toString(), dest, fieldTitulo.getText(), areaEmail.getText());
             String resposta = Talker.getInstance().enviarMensagem(
                     novoEmail.getEmailDe(),
                     novoEmail.getEmailPara(),
