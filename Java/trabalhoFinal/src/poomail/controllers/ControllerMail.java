@@ -1,22 +1,26 @@
 package poomail.controllers;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import poomail.Main;
 import poomail.classes.*;
+import poomail.data.Email;
+import poomail.data.EmailData;
+import poomail.data.User;
+import poomail.holders.EmailHolder;
+import poomail.holders.UserHolder;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.EventListener;
+
+import static java.lang.Thread.sleep;
 
 public class ControllerMail {
 
@@ -40,7 +44,7 @@ public class ControllerMail {
     private EmailData emailsCaixaEntrada;
     private EmailData emailsEnviados;
     private EmailData emailsLixeira;
-
+    private final int valor = 5;
     private User user;
 
 
@@ -54,7 +58,17 @@ public class ControllerMail {
 
         changeFocus();
 
-        receberEmails(emailsCaixaEntrada);
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                while (true){
+                    receberEmails(emailsCaixaEntrada,false);
+                    sleep(6000);
+                }
+            }
+        };
+        //new Thread(task).start();
+
         setDataTable(emailsCaixaEntrada);
     }
 
@@ -67,20 +81,20 @@ public class ControllerMail {
 
     @FXML
     public void novoEmail(){
-        
-//        try{
-//            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/novoEmail.fxml"));
-//            Scene scene = mainMailPage.getScene();
-//            Dialog dialog = new Dialog();
-//            dialog.setTitle("Novo Email");
-//            dialog.setDialogPane();
-//            dialog.showAndWait();
-//
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-
-
+        EmailHolder.getINSTANCE().setEnviado(false);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/novoEmail.fxml"));
+            Parent root2 = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Novo Email");
+            stage.setScene(new Scene(root2));
+            stage.show();
+            stage.getScene().getWindow().setOnHidden(e -> {
+                emailEnviado(EmailHolder.getINSTANCE().isEnviado(), stage);
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -91,7 +105,7 @@ public class ControllerMail {
 
     @FXML
     public void atualizarEmail(){
-        receberEmails(emailsCaixaEntrada);
+        receberEmails(emailsCaixaEntrada, true);
         setDataTable(emailsCaixaEntrada);
     }
 
@@ -133,7 +147,7 @@ public class ControllerMail {
     }
 
     public void preencheEmail(Email email){
-        fieldPara.setText(user.toString());
+        fieldPara.setText(email.getEmailPara());
         fieldDe.setText(email.getEmailDe());
         fieldTitulo.setText(email.getTitulo());
         areaConteudo.setWrapText(true);
@@ -154,17 +168,28 @@ public class ControllerMail {
         preencheEmail(data.getEmails().isEmpty() ? emailVazio : data.getEmails().get(0));
     }
 
-    private void receberEmails(EmailData data){
-        Mensagem mensagems[] = Talker.getInstance().getMensagens(user.toString());
+    private void receberEmails(EmailData data, boolean showAlert){
+        Mensagem[] mensagems = Talker.getInstance().getMensagens(user.toString());
         if (mensagems != null){
+            data.clearList();
             for (Mensagem m : mensagems){
                 Email e = new Email(m.getRemetente(), m.getDestinatario(), m.getAssunto(), m.getTexto());
                 data.getEmails().add(e);
             }
         }else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Sem novas mensagens");
-            alert.show();
+            if(showAlert){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Sem novas mensagens");
+                alert.show();
+            }
         }
+    }
+
+    private void emailEnviado(boolean enviado, Stage stage){
+        if (enviado) {
+            Email email = EmailHolder.getINSTANCE().getEmail();
+            emailsEnviados.addEmail(email);
+        }
+        stage.close();
     }
 }

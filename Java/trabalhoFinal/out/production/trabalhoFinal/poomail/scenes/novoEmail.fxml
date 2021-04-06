@@ -13,19 +13,29 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="poomail.controllers.ControllerNovoEmail"
-            prefHeight="900" prefWidth="800"
-            fx:id="mainMailPage">
-    <VBox spacing="10">
-        <HBox>
-            <VBox spacing="6">
-                <Label text="Para" styleClass="labelEmail"/>
-                <Label text="Titulo" styleClass="labelEmail"/>
-            </VBox>
-            <VBox>
-                <TextField fx:id="fieldPara" styleClass="fieldEmail"/>
-                <TextField fx:id="fieldTitulo" styleClass="fieldEmail"/>
-            </VBox>
+            prefHeight="900" prefWidth="700"
+            fx:id="novoEmailPage">
+
+    <stylesheets>
+        <URL value="@../style/novoEmailStyle.css"/>
+    </stylesheets>
+    <center>
+        <VBox spacing="6">
+            <HBox>
+                <VBox spacing="6" styleClass="vboxLabel">
+                    <Label text="Para" styleClass="labelEmail"/>
+                    <Label text="Titulo" styleClass="labelEmail"/>
+                </VBox>
+                <VBox styleClass="vboxField">
+                    <TextField fx:id="fieldPara" styleClass="fieldEmail"/>
+                    <TextField fx:id="fieldTitulo" styleClass="fieldEmail"/>
+                </VBox>
+            </HBox>
             <TextArea styleClass="areaEmail" fx:id="areaEmail"/>
-        </HBox>
-    </VBox>
+            <HBox styleClass="btn-hbox" >
+                <Button text="Enviar" onAction="#enviarEmail" styleClass="btn-enviar"/>
+                <Button text="Cancelar" onAction="#cancelarEnvio" styleClass="btn-cancelar" />
+            </HBox>
+        </VBox>
+    </center>
 </BorderPane>

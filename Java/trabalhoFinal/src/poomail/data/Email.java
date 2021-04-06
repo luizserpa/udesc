@@ -1,14 +1,14 @@
-package poomail.classes;
+package poomail.data;
 
 import javafx.beans.property.SimpleStringProperty;
 
 public class Email {
-    private SimpleStringProperty emailDe = new SimpleStringProperty("");
-    private SimpleStringProperty emailPara = new SimpleStringProperty("");
-    private SimpleStringProperty titulo = new SimpleStringProperty("");
-    private SimpleStringProperty conteudo = new SimpleStringProperty("");
+    private final SimpleStringProperty emailDe = new SimpleStringProperty("");
+    private final SimpleStringProperty emailPara = new SimpleStringProperty("");
+    private final SimpleStringProperty titulo = new SimpleStringProperty("");
+    private final SimpleStringProperty conteudo = new SimpleStringProperty("");
     private boolean emailLido;
-    private SimpleStringProperty resumo = new SimpleStringProperty("");
+    private final SimpleStringProperty resumo = new SimpleStringProperty("");
 
     public Email(String emailDe, String emailPara, String titulo, String conteudo) {
         this.emailDe.set(emailDe);

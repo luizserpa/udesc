@@ -1,4 +1,6 @@
-package poomail.classes;
+package poomail.data;
+
+import poomail.classes.Talker;
 
 public class User {
     private String username;

@@ -1,4 +1,4 @@
-package poomail.classes;
+package poomail.data;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +11,7 @@ public class EmailData {
     private static final String CONTEUDO = "conteudo";
     private static final String RESUMO = "resumo";
 
-    private ObservableList<Email> emails;
+    private final ObservableList<Email> emails;
 
     public EmailData() {
         this.emails = FXCollections.observableArrayList();
@@ -23,6 +23,13 @@ public class EmailData {
 
     public void addEmail(Email email){
         emails.add(email);
+    }
+
+    public void clearList(){
+        if(emails != null){
+            for (int i = 0; i < emails.size(); i++)
+                emails.remove(i);
+        }
     }
 
 }

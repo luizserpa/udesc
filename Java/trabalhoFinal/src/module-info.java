@@ -8,4 +8,6 @@ module trabalhoFinal {
     opens poomail.scenes;
     opens poomail.style;
     opens poomail.classes;
+    opens poomail.data;
+    opens poomail.holders;
 }

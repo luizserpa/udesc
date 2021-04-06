@@ -94,8 +94,8 @@ public class Talker {
                 s = s.replace("{","");
                 s = s.replace("}","");
                 s = s.replace("\"", "");
-                String a[] = s.split(",");
-                String fields[];
+                String[] a = s.split(",");
+                String[] fields;
                 for(String element : a) {
                     fields = element.split(":");
 

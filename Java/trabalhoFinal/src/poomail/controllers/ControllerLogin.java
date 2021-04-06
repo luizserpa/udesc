@@ -1,25 +1,18 @@
 package poomail.controllers;
 
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import poomail.Main;
-import poomail.classes.Talker;
-import poomail.classes.User;
-import poomail.classes.UserHolder;
+import poomail.data.User;
+import poomail.holders.UserHolder;
 
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-
 
 
 public class ControllerLogin {
@@ -74,7 +67,7 @@ public class ControllerLogin {
             userHolder.setUser(user);
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/mailMainPage.fxml"));
-                Parent root1 = (Parent) fxmlLoader.load();
+                Parent root1 = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setTitle(user.toString().toLowerCase() + "@poomail.com.br");
                 stage.setScene(new Scene(root1));

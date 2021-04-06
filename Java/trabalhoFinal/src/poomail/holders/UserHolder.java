@@ -1,4 +1,6 @@
-package poomail.classes;
+package poomail.holders;
+
+import poomail.data.User;
 
 public class UserHolder {
     private User user;
