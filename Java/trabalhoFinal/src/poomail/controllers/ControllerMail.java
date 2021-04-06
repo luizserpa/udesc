@@ -46,6 +46,7 @@ public class ControllerMail {
     private EmailData emailsLixeira;
     private final int valor = 5;
     private User user;
+    private int countDown;
 
 
 
@@ -55,6 +56,7 @@ public class ControllerMail {
         this.emailsEnviados = new EmailData();
         this.emailsLixeira = new EmailData();
         this.user = UserHolder.getInstance().getUser();
+        this.countDown = 30;
 
         changeFocus();
 
@@ -62,22 +64,19 @@ public class ControllerMail {
             @Override
             protected Void call() throws Exception {
                 while (true){
-                    receberEmails(emailsCaixaEntrada,false);
-                    sleep(6000);
+                    countDown--;
+                    if (countDown <= 0) {
+                        receberEmails(emailsCaixaEntrada, false);
+                        countDown = 60;
+                    }
+                    sleep(1000);
                 }
             }
         };
+        receberEmails(emailsCaixaEntrada, false);
         new Thread(task).start();
-
         setDataTable(emailsCaixaEntrada);
     }
-
-
-
-
-
-
-
 
     @FXML
     public void novoEmail(){
@@ -107,6 +106,7 @@ public class ControllerMail {
     public void atualizarEmail(){
         receberEmails(emailsCaixaEntrada, true);
         setDataTable(emailsCaixaEntrada);
+        countDown = 60;
     }
 
     @FXML
