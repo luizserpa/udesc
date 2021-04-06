@@ -67,7 +67,7 @@ public class ControllerMail {
                 }
             }
         };
-        //new Thread(task).start();
+        new Thread(task).start();
 
         setDataTable(emailsCaixaEntrada);
     }
