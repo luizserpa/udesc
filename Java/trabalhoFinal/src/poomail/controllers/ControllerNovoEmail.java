@@ -34,6 +34,11 @@ public class ControllerNovoEmail {
         String dest = fieldPara.getText();
         if (!dest.equals("")){
             Email novoEmail = new Email(user.toString(), dest, fieldTitulo.getText(), areaEmail.getText());
+            try {
+                safeThreadLoop();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Talker.getInstance().toggleConversando();
             String resposta = Talker.getInstance().enviarMensagem(
                     novoEmail.getEmailDe(),
@@ -70,5 +75,14 @@ public class ControllerNovoEmail {
             EmailHolder.getINSTANCE().setEnviado(true);
         }
         return EmailHolder.getINSTANCE().isEnviado();
+    }
+
+    public void safeThreadLoop() throws InterruptedException {
+        do{
+            if (!Talker.getInstance().isConversando()){
+                return;
+            }
+            Thread.sleep(100);
+        }while (Talker.getInstance().isConversando());
     }
 }
