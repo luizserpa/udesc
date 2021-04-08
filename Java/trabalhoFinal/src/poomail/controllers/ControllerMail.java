@@ -62,7 +62,9 @@ public class ControllerMail {
                 while (UserHolder.getInstance().getUser().isLoginValido()){
                     countDown--;
                     if (countDown <= 0) {
-                        receberEmails(emailsCaixaEntrada, false);
+                        if (!Talker.getInstance().isConversando()) {
+                            receberEmails(emailsCaixaEntrada, false);
+                        }
                         countDown = 60;
                     }
                     sleep(1000);
@@ -164,7 +166,9 @@ public class ControllerMail {
     }
 
     private void receberEmails(EmailData data, boolean showAlert){
+        Talker.getInstance().toggleConversando();
         Mensagem[] mensagems = Talker.getInstance().getMensagens(user.toString());
+        Talker.getInstance().toggleConversando();
         if (mensagems != null){
             data.clearList();
             for (Mensagem m : mensagems){

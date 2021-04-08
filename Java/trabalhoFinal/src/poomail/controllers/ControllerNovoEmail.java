@@ -34,12 +34,13 @@ public class ControllerNovoEmail {
         String dest = fieldPara.getText();
         if (!dest.equals("")){
             Email novoEmail = new Email(user.toString(), dest, fieldTitulo.getText(), areaEmail.getText());
+            Talker.getInstance().toggleConversando();
             String resposta = Talker.getInstance().enviarMensagem(
                     novoEmail.getEmailDe(),
                     novoEmail.getEmailPara(),
                     novoEmail.getTitulo(),
                     novoEmail.getConteudo());
-
+            Talker.getInstance().toggleConversando();
             if (emailEnviado(resposta, novoEmail)){
                 novoEmailPage.getScene().getWindow().hide();
             }else {
