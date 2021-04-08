@@ -22,7 +22,6 @@ public class Talker {
     // Fazendo a classe Singleton.
     private static Talker instance;
     private Socket socket;
-    private boolean conversando = false;
 
     public static Talker getInstance() {
         if(instance == null) {
@@ -164,11 +163,4 @@ public class Talker {
         return resposta;
     }
 
-    public boolean isConversando(){
-        return this.conversando;
-    }
-
-    public void toggleConversando(){
-        this.conversando = !this.conversando;
-    }
 }

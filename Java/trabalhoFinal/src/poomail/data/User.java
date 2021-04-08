@@ -44,4 +44,8 @@ public class User {
     public String getLogErro() {
         return logErro;
     }
+
+    public void setLoginValido(boolean loginValido) {
+        isLoginValido = loginValido;
+    }
 }

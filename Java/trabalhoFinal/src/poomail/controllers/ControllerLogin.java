@@ -21,6 +21,8 @@ public class ControllerLogin {
     private TextField loginField;
     @FXML
     private BorderPane scene;
+    @FXML
+    private CheckBox loginCheckBox;
 
     public ControllerLogin() {
         changeFocus();
@@ -34,7 +36,12 @@ public class ControllerLogin {
     @FXML
     public void loginAction(){
         User user = new User(loginField.getText());
-        if (user.validarLogin()) {
+        if (loginCheckBox.isSelected()){
+            user.validarLogin();
+        }else {
+            user.setLoginValido(!user.validarLogin());
+        }
+        if (user.isLoginValido()) {
             openEmail(user);
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 public class EmailData {
 
-    private final ObservableList<Email> emails;
+    private ObservableList<Email> emails;
 
     public EmailData() {
         this.emails = FXCollections.observableArrayList();
@@ -21,8 +21,7 @@ public class EmailData {
 
     public void clearList(){
         if(emails != null){
-            for (int i = 0; i < emails.size(); i++)
-                emails.remove(i);
+            emails = FXCollections.observableArrayList();
         }
     }
 }

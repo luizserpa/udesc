@@ -27,25 +27,19 @@ public class ControllerNovoEmail {
     @FXML
     public void initialize (){
         user = UserHolder.getInstance().getUser();
+        areaEmail.setWrapText(true);
     }
 
     @FXML
-    public void enviarEmail(){
+    public synchronized void enviarEmail(){
         String dest = fieldPara.getText();
         if (!dest.equals("")){
             Email novoEmail = new Email(user.toString(), dest, fieldTitulo.getText(), areaEmail.getText());
-            try {
-                safeThreadLoop();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Talker.getInstance().toggleConversando();
             String resposta = Talker.getInstance().enviarMensagem(
                     novoEmail.getEmailDe(),
                     novoEmail.getEmailPara(),
                     novoEmail.getTitulo(),
                     novoEmail.getConteudo());
-            Talker.getInstance().toggleConversando();
             if (emailEnviado(resposta, novoEmail)){
                 novoEmailPage.getScene().getWindow().hide();
             }else {
@@ -77,12 +71,4 @@ public class ControllerNovoEmail {
         return EmailHolder.getINSTANCE().isEnviado();
     }
 
-    public void safeThreadLoop() throws InterruptedException {
-        do{
-            if (!Talker.getInstance().isConversando()){
-                return;
-            }
-            Thread.sleep(100);
-        }while (Talker.getInstance().isConversando());
-    }
 }

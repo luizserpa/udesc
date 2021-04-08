@@ -62,10 +62,8 @@ public class ControllerMail {
                 while (UserHolder.getInstance().getUser().isLoginValido()){
                     countDown--;
                     if (countDown <= 0) {
-                        if (!Talker.getInstance().isConversando()) {
-                            receberEmails(emailsCaixaEntrada, false);
-                        }
-                        countDown = 60;
+                        receberEmails(emailsCaixaEntrada, false);
+                        countDown = 30;
                     }
                     sleep(1000);
                 }
@@ -102,11 +100,12 @@ public class ControllerMail {
     public void atualizarEmail(){
         receberEmails(emailsCaixaEntrada, true);
         setDataTable(emailsCaixaEntrada);
-        countDown = 60;
+        countDown = 30;
     }
 
     @FXML
     public void sairEmail(){
+
         UserHolder.getInstance().setUser(new User("Novo Usuario"));
         mainMailPage.getScene().getWindow().hide();
     }
@@ -131,11 +130,9 @@ public class ControllerMail {
 
     @FXML
     public void deletarEmail(){
-        ObservableList<Email> data = tableEmails.getSelectionModel().getSelectedItems();
-        data.forEach(e -> {
-            emailsCaixaEntrada.getEmails().remove(e);
-            emailsLixeira.getEmails().add(e);
-        });
+        Email e = tableEmails.getSelectionModel().getSelectedItem();
+        emailsCaixaEntrada.getEmails().remove(e);
+        emailsLixeira.getEmails().add(e);
         setDataTable(emailsCaixaEntrada);
     }
 
@@ -165,10 +162,8 @@ public class ControllerMail {
         preencheEmail(data.getEmails().isEmpty() ? emailVazio : data.getEmails().get(0));
     }
 
-    private void receberEmails(EmailData data, boolean showAlert){
-        Talker.getInstance().toggleConversando();
+    private synchronized void receberEmails(EmailData data, boolean showAlert){
         Mensagem[] mensagems = Talker.getInstance().getMensagens(user.toString());
-        Talker.getInstance().toggleConversando();
         if (mensagems != null){
             data.clearList();
             for (Mensagem m : mensagems){
