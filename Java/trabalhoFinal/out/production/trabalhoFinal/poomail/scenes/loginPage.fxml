@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TextField?>
 <?import java.net.URL?>
+<?import javafx.scene.control.cell.CheckBoxTreeCell?>
+<?import javafx.scene.control.CheckBox?>
 <BorderPane fx:controller="poomail.controllers.ControllerLogin"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="scene">
@@ -19,8 +21,9 @@
     <center>
         <VBox spacing="10" BorderPane.alignment="CENTER" maxWidth="250" styleClass="vBox">
             <children>
-                <TextField promptText="Usuario" fx:id="loginField" alignment="CENTER" styleClass="textField disabled" onAction="#textAction"></TextField>
-                <Button fx:id="loginButton" prefWidth="Infinity" onAction="#loginAction" styleClass="button">Login</Button>
+                <TextField promptText="Usuario" fx:id="loginField" alignment="CENTER" styleClass="textField disabled" onAction="#textAction"/>
+                <Button prefWidth="Infinity" onAction="#loginAction" styleClass="button">Login</Button>
+                <CheckBox fx:id="loginCheckBox" text="Novo Usuario?" styleClass="checkbox"/>
             </children>
         </VBox>
     </center>

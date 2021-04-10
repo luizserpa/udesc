@@ -35,3 +35,7 @@
 .vBox {
     -fx-padding: 140px 0 0 0;
 }
+
+.checkbox {
+      -fx-padding: 30px 0 0 35px;
+}
