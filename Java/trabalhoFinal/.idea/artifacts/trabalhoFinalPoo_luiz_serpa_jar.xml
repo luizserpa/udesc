@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="trabalhoFinalPoo_luiz_serpa:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/trabalhoFinalPoo_luiz_serpa_jar</output-path>
+    <root id="archive" name="trabalhoFinal.jar">
+      <element id="module-output" name="trabalhoFinal" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Drivers Java/javafx-sdk-11/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="library" level="application" name="lib" />
+    </root>
+  </artifact>
+</component>
