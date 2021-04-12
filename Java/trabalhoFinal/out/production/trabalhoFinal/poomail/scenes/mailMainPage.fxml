@@ -38,7 +38,7 @@
             <VBox styleClass="sideMenus">
                 <TableView fx:id="tableEmails" styleClass="tableView" onMouseClicked="#tableClicked">
                     <columns>
-                        <TableColumn text="Entrada" fx:id="tipoEntrada" styleClass="tableColumn">
+                        <TableColumn text="E-mails" fx:id="tipoEntrada" styleClass="tableColumn">
                             <cellValueFactory>
                                 <PropertyValueFactory property="resumo"/>
                             </cellValueFactory>
