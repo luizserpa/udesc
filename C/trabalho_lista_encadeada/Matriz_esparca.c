@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <Matriz_esparca.h>
+#include "Matriz_esparca.h"
 
 int insere_linha(Matriz_esparca *m);
 Entrada_matriz new_entrada(int c, int val);
@@ -10,6 +10,9 @@ int get_coluna_EM (Entrada_matriz e);
 int get_value_EM (Entrada_matriz e);
 void set_value_EM (Entrada_matriz *e, int value);
 int comparaNumCol(Entrada_matriz e1, Entrada_matriz e2);
+void imprimi_linha(Lista linha, int qntColunas);
+void atualiza_tam_col(Matriz_esparca *m, int c);
+void imprimi_linha_vazia(int qntColunas);
 
 void inicializa_matriz( Matriz_esparca *m){
     inicializa_lista(m->multiLista, sizeof(Lista));
@@ -17,7 +20,7 @@ void inicializa_matriz( Matriz_esparca *m){
 
 int insere_linha(Matriz_esparca *m){
     Lista *linha;
-    (inicializa_lista(linha, sizeof(Entrada_matriz)));
+    inicializa_lista(linha, sizeof(Entrada_matriz));
     if(!insere_fim(m->multiLista, linha)) return false;
     return true;
 }
@@ -36,6 +39,7 @@ int add_linhas(Matriz_esparca *m, int numLinhas){
 // Recebe numero de linha e coluna com index inicial 1
 int insere_valor(Matriz_esparca *m, int l, int c, int val){
     if(l < 1 || c < 1) return false;
+    if (matriz_vazia(*m)) return false;
     Lista linha;
     Entrada_matriz el;
     int lI0 = l - 1, i = 0;
@@ -55,6 +59,7 @@ int insere_valor(Matriz_esparca *m, int l, int c, int val){
                     modifica_valor(linha, &el, i);
                 }
                 modifica_valor(*m->multiLista, &linha, lI0);
+                atualiza_tam_col(m, c);
                 return true;
             }
         }
@@ -67,6 +72,8 @@ int insere_valor(Matriz_esparca *m, int l, int c, int val){
         el = new_entrada(cI0, val);
         insere_ordem(&linha, &el, comparaNumCol);
         modifica_valor(*m->multiLista, &linha, lI0);
+        atualiza_tam_col(m, c);
+        return true;
     }
 }
 
@@ -84,7 +91,7 @@ Entrada_matriz new_entrada(int c, int val){
 int get_valor_celula(Matriz_esparca m, int l, int c){
     Lista linha;
     Entrada_matriz e;
-    le_valor(*m.multiLista, &linha, l-1);
+    if (le_valor(*m.multiLista, &linha, l-1) <= 0) return 0;
     if (!lista_vazia(linha)){
         int i = 0;
         for (i = 0; i < tamanho_lista(linha); i++){
@@ -109,20 +116,82 @@ void set_value_EM (Entrada_matriz *e, int value){
     e->value = value;
 }
 
+void desaloca_matriz(Matriz_esparca *m){
+    desaloca_sub_lista(m->multiLista);
+    desaloca_lista(m->multiLista);
+}
 
+void imprimi_linha(Lista linha, int qntColunas){
+    size_t i = 0, j = 0;
+    Entrada_matriz em;
+    if (le_valor(linha, &em, i) > 0){
+        for ( i = 0; i < tamanho_lista(linha); i++)
+        {
+            while (j < qntColunas)
+            {
+                if (j == get_coluna_EM(em))
+                {
+                    printf(" %d", get_value_EM(em));
+                    j++;
+                    break;
+                }
+                printf(" 0");
+                j++;
+            }
+        }
+        printf("\n");
+    } else {
+        imprimi_linha_vazia(qntColunas);
+    }
 
+}
 
+void imprimi_linha_vazia(int qntColunas){
+    size_t i = 0;
+    for (i = 0; i < qntColunas; i++)
+    {
+        printf(" 0");
+    }
+    printf("\n");
+}
 
+void atualiza_tam_col(Matriz_esparca *m, int c){
+    m->numColunas = m->numColunas < (c - 1) ? c : m->numColunas;
+}
 
+void imprimi_matriz(Matriz_esparca m){
+    int numLinhas = tamanho_lista(*m.multiLista);
+    int numColunas = m.numColunas;
+    Lista linha;
+    size_t i = 0;
+    printf("Matriz [ %d, %d]\n", numLinhas, m.numColunas);
+    for ( i = 0; i < numLinhas; i++)
+    {
+        if(le_valor(*m.multiLista, &linha, i) > 0){
+            imprimi_linha(linha, numColunas);
+        }else {
+            printf("Matriz Vazia");
+        }
+    }
+    printf("\n");
+}
 
+int matriz_vazia(Matriz_esparca m){
+    return lista_vazia(*m.multiLista);
+}
 
-
+int linha_vazia(Matriz_esparca m, int l){
+    int lI0 = l - 1;
+    Lista linha;
+    le_valor (*m.multiLista, &linha, lI0);
+    return lista_vazia(linha);
+}
 
 
 Matriz_esparca soma_matrizes(Matriz_esparca m1, Matriz_esparca m2);
-void desaloca_matriz(Matriz_esparca *m);
-void imprimi_matriz(Matriz_esparca m);
-int matriz_vazia(Matriz_esparca m);
-int linha_vazia(Matriz_esparca m, int l);
+
+
+
+
 
 

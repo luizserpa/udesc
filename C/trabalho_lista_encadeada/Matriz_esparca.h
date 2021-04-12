@@ -1,4 +1,4 @@
-#include <Lista.h>
+#include "Lista.h"
 
 typedef struct{
     int col;

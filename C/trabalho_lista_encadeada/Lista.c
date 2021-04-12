@@ -212,3 +212,16 @@ int tamanho_lista(Lista p){
    return p.qtd;
 }
 
+int desaloca_sub_lista(Lista *p){
+   Elemento *aux = p->cabeca;
+   while (aux != NULL)
+   {
+      Elemento *prox = aux->proximo;
+      desaloca_lista(aux->info);
+      free(aux);
+      aux = prox;
+   }
+   p->cabeca = NULL;
+   p->qtd = 0;
+}
+

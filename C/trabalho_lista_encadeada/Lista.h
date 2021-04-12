@@ -29,4 +29,5 @@ void mostra_lista( Lista l, void (*mostra)(void *) );
 int conta_elementos( Lista l );
 void desaloca_lista( Lista *p );
 int tamanho_lista(Lista p);
+int desaloca_sub_lista(Lista *p);
 
