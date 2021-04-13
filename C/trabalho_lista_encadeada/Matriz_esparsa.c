@@ -17,6 +17,7 @@ Entrada_matriz soma_elementos(Matriz_esparsa m1, Matriz_esparsa m2, int l, int c
 
 void inicializa_matriz( Matriz_esparsa *m){
     inicializa_lista(&m->multiLista, sizeof(Lista));
+    m->numColunas = 0;
 }
 
 int insere_linha(Matriz_esparsa *m){
@@ -40,7 +41,6 @@ int add_linhas(Matriz_esparsa *m, int numLinhas){
 // Recebe numero de linha e coluna com index inicial 1
 int insere_valor(Matriz_esparsa *m, int l, int c, int val){
     if(l < 1 || c < 1) return ERRO_POS_INVALIDA;
-    if (matriz_vazia(*m)) return ERRO_MATRIZ_VAZIA;
     Lista linha;
     Entrada_matriz el;
     int lI0 = l - 1, i = 0;

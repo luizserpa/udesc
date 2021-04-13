@@ -12,6 +12,7 @@ void menuTexto () {
     printf("3. Modificar Dados. \n");
     printf("4. Somar Duas Matrizes. \n");
     printf("5. Remover uma matriz. \n");
+    printf("0. Sair. \n");
     printf("Obs.: Todos os valores com index inicial 1. \n");
     printf("\n");
 }
