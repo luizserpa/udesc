@@ -5,7 +5,7 @@
 int setNumero(char []);
 
 void menuTexto () {
-    printf("--- MENU ---\n");
+    printf("\n--- MENU ---\n");
     printf("\n");
     printf("1. Criar Nova Matriz. \n");
     printf("2. Mostrar Dados de Uma Matriz. \n");
