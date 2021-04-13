@@ -5,7 +5,7 @@
 int setNumero(char []);
 
 void menuTexto () {
-    printf("\n--- MENU ---\n");
+    printf("\n\n\n--- MENU ---\n");
     printf("\n");
     printf("1. Criar Nova Matriz. \n");
     printf("2. Mostrar Dados de Uma Matriz. \n");
@@ -23,6 +23,7 @@ int escolhaMenu(int matrizesDisponiveis){
     {
         printf("Existem %d matrizes disponiveis.\n", matrizesDisponiveis);
         numero = setNumero("Favor escolha a opção desejada: ");
+        printf("\n");
         if (numero >= 0 && numero <= 5){
             return numero;
         }
