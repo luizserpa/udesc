@@ -22,24 +22,29 @@ int main (){
             printf("Nova matriz esparsa criada, Index: %d", tamanho_lista(matrizes));
             break;
         case 2: ;
-            m = new_matriz();
+            Matriz_esparsa matriz_imprimir;
+            matriz_imprimir = new_matriz();
             index = escolhaIndex("\n\n===   Mostrar dados de uma Matriz.   ===\n\nEscolha o index da matriz: ");
-            isLeituraValida = le_valor(matrizes, &m, index - 1);
+            isLeituraValida = le_valor(matrizes, &matriz_imprimir, index - 1);
             if(valida_leitura(isLeituraValida))
-                imprimi_matriz(m);
-                desaloca_matriz(&m);
+                imprimi_matriz(matriz_imprimir);
+                // desaloca_matriz(&m);
             break;
         case 3: ;
-            m = new_matriz();
-            index = escolhaIndex("\n\n===   Modificar dados de uma Matriz.   ===\n\nInsera 0 para excluir valor\nEscolha o index da matriz: ");
-            isLeituraValida = le_valor(matrizes, &m, index - 1);
+            Matriz_esparsa matriz_adcionar;
+            matriz_adcionar = new_matriz();
+            index = escolhaIndex("\n\n===   Modificar dados de uma Matriz.   ===\n\nInsera 0 para excluir valor\nEscolha o index da matriz: ") - 1;
+            isLeituraValida = le_valor(matrizes, &matriz_adcionar, index);
             if (valida_leitura(isLeituraValida)){
                 int l = escolhaIndex("Linha: ");
                 int c = escolhaIndex("Coluna: ") ;
                 int value = setNumero("Valor Inteiro: ");
-                insere_valor(&m, l, c, value);
-                modifica_valor(matrizes, &m, index);
-                desaloca_matriz(&m);
+                printf("Teste 1\n");
+                insere_valor(&matriz_adcionar, l, c, value);
+                printf("Teste 2\n");
+                modifica_valor(matrizes, &matriz_adcionar, index);
+                printf("Teste 3\n");
+                //desaloca_matriz(&matriz_adcionar);
             }
             break;
         case 4: ;
@@ -59,13 +64,14 @@ int main (){
             }
             break;
         case 5: ;
-            m = new_matriz();
-            index = escolhaIndex("\n\n===   Remover Matriz   ===\n\nEscolha o index da matriz: ");
-            isLeituraValida = le_valor(matrizes, &m, index);
+            Matriz_esparsa matriz_desaloca;
+            matriz_desaloca = new_matriz();
+            index = escolhaIndex("\n\n===   Remover Matriz   ===\n\nEscolha o index da matriz: ") - 1;
+            isLeituraValida = le_valor(matrizes, &matriz_desaloca, index);
             if (valida_leitura(isLeituraValida)){
-                desaloca_matriz(&m);
-                modifica_valor(matrizes, &m, index);
-                remove_pos(&matrizes, &m, index);
+                desaloca_matriz(&matriz_desaloca);
+                modifica_valor(matrizes, &matriz_desaloca, index);
+                remove_pos(&matrizes, &matriz_desaloca, index);
             }
             break;
         default: ;
