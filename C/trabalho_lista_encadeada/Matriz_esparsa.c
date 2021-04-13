@@ -142,6 +142,7 @@ void imprimi_linha(Lista linha, int qntColunas){
     if (le_valor(linha, &em, i) > 0){
         for ( i = 0; i < tamanho_lista(linha); i++)
         {
+            le_valor(linha, &em, i);
             while (j < qntColunas)
             {
                 if (j == get_coluna_EM(em))
@@ -229,7 +230,8 @@ Matriz_esparsa soma_matrizes(Matriz_esparsa m1, Matriz_esparsa m2){
         for (j = 0; j < numColunas; j++)
         {
             Entrada_matriz el = soma_elementos(m1, m2, i+1, j+1);
-            insere_valor(&matriz_soma, i+2, j+1, get_value_EM(el));
+            if(get_value_EM(el))
+                insere_valor(&matriz_soma, i+2, j+1, get_value_EM(el));
         }
     }
     return matriz_soma;
