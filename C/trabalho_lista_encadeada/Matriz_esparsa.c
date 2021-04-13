@@ -49,17 +49,17 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
     int numLinhaAdicionar = l - tamanho_lista(m->multiLista);
     add_linhas(m, numLinhaAdicionar);
     if (get_valor_celula(m, l, c)){
-        le_valor(m->multiLista, &linha, lI0);
+        le_valor(m->multiLista, &linha, l);
         for (i = 0; i < tamanho_lista(linha); i++){
             le_valor(linha, &el, i);
-            if (cI0 == get_coluna_EM(el)){
+            if (c - 1 == get_coluna_EM(el)){
                 if(val == 0){
                     remove_pos(&linha, &el, i);
                 }else {
                     set_value_EM(&el, val);
                     modifica_valor(linha, &el, i);
                 }
-                modifica_valor(m->multiLista, &linha, lI0);
+                modifica_valor(m->multiLista, &linha, l - 1);
                 atualiza_tam_col(m, c);
                 return true;
             }
@@ -74,13 +74,13 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
         }else {
             le_valor(m->multiLista, &linha, lI0);
         }
-        el = new_entrada(cI0, val);
+        el = new_entrada(c - 1, val);
         if (tamanho_lista(linha) == 0){
             insere_fim(&linha, &el);
         }else {
             insere_ordem(&linha, &el, *comparaNumCol);
         }
-        modifica_valor(m->multiLista, &linha, l);
+        modifica_valor(m->multiLista, &linha, l - 1);
         atualiza_tam_col(m, c);
         return true;
     }
@@ -172,7 +172,7 @@ void imprimi_linha_vazia(int qntColunas){
 }
 
 void atualiza_tam_col(Matriz_esparsa *m, int c){
-    m->numColunas = m->numColunas < (c - 1) ? c : m->numColunas;
+    m->numColunas = m->numColunas < (c) ? c : m->numColunas;
     printf("Colunas atualizadas %d\n", m->numColunas);
 }
 
@@ -214,6 +214,8 @@ Matriz_esparsa soma_matrizes(Matriz_esparsa m1, Matriz_esparsa m2){
 
     int numLinhas = tamanho_lista(m1.multiLista) > tamanho_lista(m2.multiLista) ? tamanho_lista(m1.multiLista) : tamanho_lista(m2.multiLista);
     int numColunas = m1.numColunas > m2.numColunas ? m1.numColunas : m2.numColunas;
+
+    matriz_soma.numColunas = numColunas;
 
     size_t i = 0, j = 0;
     for (i = 0; i < numLinhas; i++)
