@@ -33,7 +33,6 @@ int add_linhas(Matriz_esparsa *m, int numLinhas){
         for(i = 0; i < numLinhas; i++){
             insere_linha(m);
         }
-        printf("Linhas adicionadas %d", numLinhas);
         return true;
     }
     return false;
@@ -147,13 +146,21 @@ void imprimi_linha(Lista linha, int qntColunas){
             {
                 if (j == get_coluna_EM(em))
                 {
-                    printf(" %d", get_value_EM(em));
+                    printf(" %2d", get_value_EM(em));
                     j++;
                     break;
                 }
-                printf(" 0");
+                printf(" %2d", 0);
                 j++;
             }
+        }
+        if (j != qntColunas){
+            while (j < qntColunas)
+            {
+                printf(" %2d", 0);
+                j++;
+            }
+            
         }
         printf("\n");
     } else {
@@ -166,14 +173,13 @@ void imprimi_linha_vazia(int qntColunas){
     size_t i = 0;
     for (i = 0; i < qntColunas; i++)
     {
-        printf(" 0");
+        printf(" %2d", 0);
     }
     printf("\n");
 }
 
 void atualiza_tam_col(Matriz_esparsa *m, int c){
     m->numColunas = m->numColunas < (c) ? c : m->numColunas;
-    printf("Colunas atualizadas %d\n", m->numColunas);
 }
 
 void imprimi_matriz(Matriz_esparsa m){
@@ -212,7 +218,7 @@ Matriz_esparsa soma_matrizes(Matriz_esparsa m1, Matriz_esparsa m2){
     if (matriz_vazia(m1)) return m2;
     if (matriz_vazia(m2)) return m1;
 
-    int numLinhas = tamanho_lista(m1.multiLista) > tamanho_lista(m2.multiLista) ? tamanho_lista(m1.multiLista) : tamanho_lista(m2.multiLista);
+    int numLinhas = tamanho_lista(m1.multiLista) > tamanho_lista(m2.multiLista) ? tamanho_lista(m1.multiLista) : tamanho_lista(m2.multiLista) - 1;
     int numColunas = m1.numColunas > m2.numColunas ? m1.numColunas : m2.numColunas;
 
     matriz_soma.numColunas = numColunas;
@@ -222,8 +228,8 @@ Matriz_esparsa soma_matrizes(Matriz_esparsa m1, Matriz_esparsa m2){
     {
         for (j = 0; j < numColunas; j++)
         {
-            Entrada_matriz el = soma_elementos(m1, m2, i + 1, j + 1);
-            insere_valor(&matriz_soma, i+1, j+1, get_value_EM(el));
+            Entrada_matriz el = soma_elementos(m1, m2, i+1, j+1);
+            insere_valor(&matriz_soma, i+2, j+1, get_value_EM(el));
         }
     }
     return matriz_soma;

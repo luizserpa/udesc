@@ -17,10 +17,11 @@ void menuTexto () {
     printf("\n");
 }
 
-int escolhaMenu(){
+int escolhaMenu(int matrizesDisponiveis){
     int numero = 0;
     do
     {
+        printf("Existem %d matrizes disponiveis.\n", matrizesDisponiveis);
         numero = setNumero("Favor escolha a opção desejada: ");
         if (numero >= 0 && numero <= 5){
             return numero;

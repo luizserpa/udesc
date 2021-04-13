@@ -12,7 +12,7 @@ int main (){
     do
     {
         menuTexto();
-        escolha = escolhaMenu();
+        escolha = escolhaMenu(tamanho_lista(matrizes));
         switch (escolha)
         {
         case 1: ;
@@ -28,7 +28,6 @@ int main (){
             isLeituraValida = le_valor(matrizes, &matriz_imprimir, index - 1);
             if(valida_leitura(isLeituraValida))
                 imprimi_matriz(matriz_imprimir);
-                // desaloca_matriz(&m);
             break;
         case 3: ;
             Matriz_esparsa matriz_adcionar;
@@ -41,7 +40,6 @@ int main (){
                 int value = setNumero("Valor Inteiro: ");
                 insere_valor(&matriz_adcionar, l, c, value);
                 modifica_valor(matrizes, &matriz_adcionar, index);
-                //desaloca_matriz(&matriz_adcionar);
             }
             break;
         case 4: ;
@@ -56,8 +54,6 @@ int main (){
             {
                 m = soma_matrizes(m1, m2);
                 insere_fim(&matrizes, &m);
-                desaloca_matriz(&m1);
-                desaloca_matriz(&m2);
             }
             break;
         case 5: ;
