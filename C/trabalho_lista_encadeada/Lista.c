@@ -54,10 +54,8 @@ int insere_fim( Lista *p, void *info ){
    if( lista_vazia( *p ) )
       return insere_inicio( p, info );
    Elemento *aux = p->cabeca;
-   printf("Teste 1.2.1, NL: GG \n");
    while( aux->proximo != NULL )
       aux = aux->proximo;
-   printf("Teste 1.2.1, NL: \n");
    Elemento *novo = aloca_elemento( info, p->tamInfo );
    if( novo == NULL )
       return 0; // Erro, falta de mem�ria!
@@ -128,19 +126,14 @@ int remove_pos( Lista *p, void *info , int pos ){
 
 //Index inicial 1
 int le_valor( Lista l, void *info , int pos ){
-   printf("Teste 1.3.2.1\n");
    if( lista_vazia( l ) )
       return ERRO_LISTA_VAZIA;
-   printf("Teste 1.3.2.2\n");
    if( pos < 0 || pos >= l.qtd )
       return ERRO_POS_INVALIDA;
-	printf("Teste 1.3.2.3\n");	
    Elemento *aux = l.cabeca;
-   printf("Teste 1.3.2.4\n");
    int cont;
    for( cont = 0 ; cont < pos ; cont++ )
       aux = aux->proximo; // Vai at� elemento em pos
-	printf("Teste 1.3.2.5\n");
    memcpy( info, aux->info, l.tamInfo );
    return 1; // Sucesso!
 }

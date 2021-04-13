@@ -39,11 +39,8 @@ int main (){
                 int l = escolhaIndex("Linha: ");
                 int c = escolhaIndex("Coluna: ") ;
                 int value = setNumero("Valor Inteiro: ");
-                printf("Teste 1\n");
                 insere_valor(&matriz_adcionar, l, c, value);
-                printf("Teste 2\n");
                 modifica_valor(matrizes, &matriz_adcionar, index);
-                printf("Teste 3\n");
                 //desaloca_matriz(&matriz_adcionar);
             }
             break;

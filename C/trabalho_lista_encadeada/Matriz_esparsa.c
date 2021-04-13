@@ -21,11 +21,9 @@ void inicializa_matriz( Matriz_esparsa *m){
 }
 
 int insere_linha(Matriz_esparsa *m){
-    printf("Tamanho multilista: %d\n", m->multiLista.qtd);
     Lista linha;
     inicializa_lista(&linha, sizeof(Entrada_matriz));
     if(!insere_fim(&m->multiLista, &linha)) return false;
-    printf("Tamanho multilista: %d\n", m->multiLista.qtd);
     return true;
 }
 
@@ -33,8 +31,7 @@ int add_linhas(Matriz_esparsa *m, int numLinhas){
     if (numLinhas > 0){
         int i = 0;
         for(i = 0; i < numLinhas; i++){
-            if(!insere_linha(m))
-                printf("ERRRRRRRROOOOOOOOO!!!!!!!\n");
+            insere_linha(m);
         }
         printf("Linhas adicionadas %d", numLinhas);
         return true;
@@ -49,13 +46,9 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
     Entrada_matriz el;
     int lI0 = l - 1, i = 0;
     int cI0 = c - 1;
-    printf("Teste 1.1\n");
     int numLinhaAdicionar = l - tamanho_lista(m->multiLista);
-    printf("Teste 1.2\n");
     add_linhas(m, numLinhaAdicionar);
-    printf("Teste 1.3\n");
     if (get_valor_celula(m, l, c)){
-        printf("Teste 1.5\n");
         le_valor(m->multiLista, &linha, lI0);
         for (i = 0; i < tamanho_lista(linha); i++){
             le_valor(linha, &el, i);
@@ -76,7 +69,6 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
         if (val == 0) {
             return true;
         }
-        printf("Teste 1.4\n");
         if (tamanho_lista(m->multiLista) == 0){
             inicializa_lista(&linha, sizeof(Entrada_matriz));
         }else {
@@ -90,7 +82,6 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
         }
         modifica_valor(m->multiLista, &linha, l);
         atualiza_tam_col(m, c);
-        printf("Col %d, Lin %d", m->numColunas, m->multiLista.qtd);
         return true;
     }
 }
@@ -113,16 +104,12 @@ Entrada_matriz new_entrada(int c, int val){
 // Não está funcionando
 // Linha e coluna com index inicial 1
 int get_valor_celula(Matriz_esparsa *m, int l, int c){
-    printf("Teste 1.3.1\n");
     Lista linha;
     Entrada_matriz e;
-    printf("Teste 1.3.2\n");
     if (le_valor(m->multiLista, &linha, l) <= 0) return 0;
-    printf("Teste 1.3.3\n");
     if (!lista_vazia(linha)){
         int i = 0;
         for (i = 0; i < tamanho_lista(linha); i++){
-            printf("Teste 1.3.4\n");
             le_valor(linha, &e, i);
             if ((c-1) == get_coluna_EM(e)) 
                 return get_value_EM(e);
