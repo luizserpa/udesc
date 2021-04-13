@@ -13,11 +13,19 @@ void menuTexto () {
     printf("4. Somar Duas Matrizes. \n");
     printf("5. Remover uma matriz. \n");
     printf("Obs.: Todos os valores com index inicial 1. \n");
-    printf("\n")
+    printf("\n");
 }
 
 int escolhaMenu(){
-    return setNumero("Favor escolha a opção desejada: \n");
+    int numero = 0;
+    do
+    {
+        numero = setNumero("Favor escolha a opção desejada: ");
+        if (numero >= 0 && numero <= 5){
+            return numero;
+        }
+        printf("Entrada Invalida. \n");
+    } while (true);
 }
 
 int setNumero(char informacaoNumero[]){
@@ -27,14 +35,34 @@ int setNumero(char informacaoNumero[]){
         printf("%s", informacaoNumero);
         if (scanf("%d", &numero)){
             fgets(limpa_buffer, 255, stdin);
-            if(numero >= 0 && numero <= 5){
-                return numero;
-            }
-            printf("Entrada Invalida\n");
-            fgets(limpa_buffer, 255, stdin);
+            return numero;
         }else{
-            printf("Entrada Invalida\n");
+            printf("Entrada Invalida.\n");
             fgets(limpa_buffer, 255, stdin);
         }
     }
 }
+
+int escolhaIndex(char info[]) {
+    int index = 0;
+    do
+    {
+        index = setNumero(info);
+        if (index > 0){
+            return index;
+        }
+        printf("Entrada Invalida. \n");
+    } while (true);
+}
+
+int valida_leitura(int leituraValida){
+    if(leituraValida == -1){
+        printf("ERRO LISTA VAZIA!\n");
+        return 0;
+    }else if (leituraValida == - 2){
+        printf("ERRO POSIÇÃO INVALIDA!\n");
+        return 0;
+    }
+    return 1;
+}
+

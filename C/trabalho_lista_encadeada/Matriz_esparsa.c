@@ -39,8 +39,8 @@ int add_linhas(Matriz_esparsa *m, int numLinhas){
 
 // Recebe numero de linha e coluna com index inicial 1
 int insere_valor(Matriz_esparsa *m, int l, int c, int val){
-    if(l < 1 || c < 1) return false;
-    if (matriz_vazia(*m)) return false;
+    if(l < 1 || c < 1) return ERRO_POS_INVALIDA;
+    if (matriz_vazia(*m)) return ERRO_MATRIZ_VAZIA;
     Lista linha;
     Entrada_matriz el;
     int lI0 = l - 1, i = 0;

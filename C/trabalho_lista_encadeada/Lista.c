@@ -224,4 +224,3 @@ int desaloca_sub_lista(Lista *p){
    p->cabeca = NULL;
    p->qtd = 0;
 }
-

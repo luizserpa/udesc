@@ -1,5 +1,7 @@
 #include "Lista.h"
 
+#define ERRO_MATRIZ_VAZIA -2
+
 typedef struct{
     int col;
     int value;
