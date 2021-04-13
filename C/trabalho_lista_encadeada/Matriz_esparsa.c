@@ -16,13 +16,13 @@ void imprimi_linha_vazia(int qntColunas);
 Entrada_matriz soma_elementos(Matriz_esparsa m1, Matriz_esparsa m2, int l, int c);
 
 void inicializa_matriz( Matriz_esparsa *m){
-    inicializa_lista(m->multiLista, sizeof(Lista));
+    inicializa_lista(&m->multiLista, sizeof(Lista));
 }
 
 int insere_linha(Matriz_esparsa *m){
     Lista *linha;
     inicializa_lista(linha, sizeof(Entrada_matriz));
-    if(!insere_fim(m->multiLista, linha)) return false;
+    if(!insere_fim(&m->multiLista, linha)) return false;
     return true;
 }
 
@@ -45,11 +45,11 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
     Entrada_matriz el;
     int lI0 = l - 1, i = 0;
     int cI0 = c - 1;
-    int numLinhaAdicionar = lI0 - tamanho_lista(*m->multiLista);
+    int numLinhaAdicionar = lI0 - tamanho_lista(m->multiLista);
     add_linhas(m, numLinhaAdicionar);
 
     if (get_valor_celula(*m, l, c)){
-        le_valor(*m->multiLista, &linha, lI0);
+        le_valor(m->multiLista, &linha, lI0);
         for (i = 0; i < tamanho_lista(linha); i++){
             le_valor(linha, &el, i);
             if (cI0 == get_coluna_EM(el)){
@@ -59,7 +59,7 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
                     set_value_EM(&el, val);
                     modifica_valor(linha, &el, i);
                 }
-                modifica_valor(*m->multiLista, &linha, lI0);
+                modifica_valor(m->multiLista, &linha, lI0);
                 atualiza_tam_col(m, c);
                 return true;
             }
@@ -69,10 +69,10 @@ int insere_valor(Matriz_esparsa *m, int l, int c, int val){
         if (val == 0) {
             return true;
         }
-        le_valor(*m->multiLista, &linha, lI0);
+        le_valor(m->multiLista, &linha, lI0);
         el = new_entrada(cI0, val);
         insere_ordem(&linha, &el, *comparaNumCol);
-        modifica_valor(*m->multiLista, &linha, lI0);
+        modifica_valor(m->multiLista, &linha, lI0);
         atualiza_tam_col(m, c);
         return true;
     }
@@ -97,7 +97,7 @@ Entrada_matriz new_entrada(int c, int val){
 int get_valor_celula(Matriz_esparsa m, int l, int c){
     Lista linha;
     Entrada_matriz e;
-    if (le_valor(*m.multiLista, &linha, l-1) <= 0) return 0;
+    if (le_valor(m.multiLista, &linha, l-1) <= 0) return 0;
     if (!lista_vazia(linha)){
         int i = 0;
         for (i = 0; i < tamanho_lista(linha); i++){
@@ -123,8 +123,8 @@ void set_value_EM (Entrada_matriz *e, int value){
 }
 
 void desaloca_matriz(Matriz_esparsa *m){
-    desaloca_sub_lista(m->multiLista);
-    desaloca_lista(m->multiLista);
+    desaloca_sub_lista(&m->multiLista);
+    desaloca_lista(&m->multiLista);
 }
 
 void imprimi_linha(Lista linha, int qntColunas){
@@ -166,14 +166,14 @@ void atualiza_tam_col(Matriz_esparsa *m, int c){
 }
 
 void imprimi_matriz(Matriz_esparsa m){
-    int numLinhas = tamanho_lista(*m.multiLista);
+    int numLinhas = tamanho_lista(m.multiLista);
     int numColunas = m.numColunas;
     Lista linha;
     size_t i = 0;
     printf("Matriz [ %d, %d]\n", numLinhas, m.numColunas);
     for ( i = 0; i < numLinhas; i++)
     {
-        if(le_valor(*m.multiLista, &linha, i) > 0){
+        if(le_valor(m.multiLista, &linha, i) > 0){
             imprimi_linha(linha, numColunas);
         }else {
             printf("Matriz Vazia");
@@ -183,13 +183,13 @@ void imprimi_matriz(Matriz_esparsa m){
 }
 
 int matriz_vazia(Matriz_esparsa m){
-    return lista_vazia(*m.multiLista);
+    return lista_vazia(m.multiLista);
 }
 
 int linha_vazia(Matriz_esparsa m, int l){
     int lI0 = l - 1;
     Lista linha;
-    le_valor (*m.multiLista, &linha, lI0);
+    le_valor (m.multiLista, &linha, lI0);
     return lista_vazia(linha);
 }
 
@@ -201,7 +201,7 @@ Matriz_esparsa soma_matrizes(Matriz_esparsa m1, Matriz_esparsa m2){
     if (matriz_vazia(m1)) return m2;
     if (matriz_vazia(m2)) return m1;
 
-    int numLinhas = tamanho_lista(*m1.multiLista) > tamanho_lista(*m2.multiLista) ? tamanho_lista(*m1.multiLista) : tamanho_lista(*m2.multiLista);
+    int numLinhas = tamanho_lista(m1.multiLista) > tamanho_lista(m2.multiLista) ? tamanho_lista(m1.multiLista) : tamanho_lista(m2.multiLista);
     int numColunas = m1.numColunas > m2.numColunas ? m1.numColunas : m2.numColunas;
 
     size_t i = 0, j = 0;

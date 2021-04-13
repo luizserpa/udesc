@@ -17,7 +17,6 @@ int main (){
         switch (escolha)
         {
         case 1:
-            desaloca_matriz(&m);
             m = new_matriz();
             insere_fim(&matrizes, &m);
             printf("Nova matriz esparsa criada, Index: %d", tamanho_lista(matrizes));

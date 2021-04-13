@@ -8,7 +8,7 @@ typedef struct{
 } Entrada_matriz;
 
 typedef struct{
-    Lista *multiLista;
+    Lista multiLista;
     int numColunas;
 } Matriz_esparsa;
 
