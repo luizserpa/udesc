@@ -34,6 +34,14 @@ tituloArquivo="${dataFormatada}_${horaFormatada}_Processos_${usuarioCorrente}.cs
 
 echo $(touch $tituloArquivo)
 
+cabecalho="Número total de processos ativos no sistema"
+cabecalho="${cabecalho},Número de processos ativos do usuário"
+cabecalho="${cabecalho},Quantidade total de threads dos processos do usuário"
+cabecalho="${cabecalho},Processo mais antigo do usuário"
+cabecalho="${cabecalho},Nome do usuário corrente"
+cabecalho="${cabecalho},Quantidade de processos sendo executados, excluindo-se os do usuário corrente"
+cabecalho="${cabecalho},Quantidade de processos sendo executados como root"
+
 conteudoArquivo="${numeroProcessosAtivos}"
 conteudoArquivo="${conteudoArquivo},${numeroProcessosUsuario}"
 conteudoArquivo="${conteudoArquivo},${numeroTotalTheadsUser}"
@@ -42,4 +50,5 @@ conteudoArquivo="${conteudoArquivo},${usuarioCorrente}"
 conteudoArquivo="${conteudoArquivo},${processosExecutadosUser}"
 conteudoArquivo="${conteudoArquivo},${processosExecutadosRoot}"
 
+echo "$cabecalho">>$tituloArquivo
 echo "${conteudoArquivo}">>$tituloArquivo
